@@ -1,0 +1,51 @@
+/* Flow Container CSS styles */
+
+/*Containers*/
+.container__main {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  grid-template-rows: 5rem 1fr;
+
+  background-color: #e0ebf5;
+  width: 85vw;
+  height: 90vh;
+
+  border-radius: 10px;
+}
+
+.container__top {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  align-items: center;
+}
+
+.flow__container {
+  width: 100%;
+}
+
+.criteria__container {
+  width: 100%;
+  background-color: white;
+
+  padding: 30px;
+}
+
+/* Elements */
+
+.header {
+  grid-column: 1/3;
+
+  display: flex;
+  align-items: center;
+
+  font-size: 1.4rem;
+  font-weight: 600;
+
+  background-color: white;
+  border-bottom: 2px solid rgb(201, 201, 201);
+
+  width: 100%;
+
+  padding: 0px 1rem;
+}

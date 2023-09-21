@@ -1,0 +1,36 @@
+.header {
+  display: flex;
+  align-items: center;
+}
+
+.header__title {
+  font-weight: 600;
+  font-size: 1.3rem;
+
+  width: 100%;
+}
+
+.header__buttons {
+  justify-self: flex-end;
+  margin-right: 10px;
+
+  display: flex;
+}
+
+.btn__discard {
+  width: 3rem;
+  padding: 10px;
+
+  align-items: center;
+
+  background-color: transparent;
+  outline: none;
+  border: none;
+
+  position: relative;
+}
+
+.btn__discard:hover {
+  background-color: rgb(243, 243, 243);
+  border-radius: 20px;
+}

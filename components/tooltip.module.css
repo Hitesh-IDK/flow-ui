@@ -1,0 +1,29 @@
+.tooltip__content {
+  position: absolute;
+  left: -50%;
+  top: 100%;
+
+  padding: 10px 20px;
+
+  font-size: 0.8rem;
+  color: white;
+  background-color: #0f1f2e;
+  border-radius: 5px;
+  /* display: none; */
+}
+
+.tooltip__content:before {
+  content: "";
+  position: absolute;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 15px solid #0f1f2e;
+  bottom: 80%;
+  left: 45%;
+  margin-left: -5px;
+  margin-top: -5px;
+}
+
+.tooltip {
+  position: relative;
+}
