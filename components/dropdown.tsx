@@ -3,10 +3,11 @@
 import styles from "./dropdown.module.css";
 import { useState } from "react";
 
-type Props = {
+interface Props {
   name: string;
   options: string[];
-};
+  checkActive(isActive: boolean): void;
+}
 
 export default function (props: Props): JSX.Element {
   const [isActive, toggleActive] = useState(false);
@@ -20,7 +21,7 @@ export default function (props: Props): JSX.Element {
 
   const optionElements: JSX.Element[] = props.options.map((option, i) => {
     return (
-      <div className={option} onClick={changeActiveOption} key={i}>
+      <div className={styles.option} onClick={changeActiveOption} key={i}>
         {option}
       </div>
     );
@@ -33,10 +34,12 @@ export default function (props: Props): JSX.Element {
 
   return (
     <div className={styles.options__container}>
-      <div className={styles.options__name} onClick={toggleDropdown}>
-        {activeOption}
+      <div className={styles.options} onClick={toggleDropdown}>
+        <div className={styles.options__active}>{activeOption}</div>
+        <div className={styles.options__inactive}>
+          {isActive && optionElements}
+        </div>
       </div>
-      {isActive && optionElements}
     </div>
   );
 }

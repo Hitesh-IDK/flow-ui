@@ -6,12 +6,9 @@
   flex-direction: column;
 }
 
-.field__options {
-  font-size: 1.1rem;
-  width: 100%;
-  height: 2.5rem;
-}
-
-.field__option {
-  background-color: antiquewhite;
+.field__name {
+  margin-top: 1.3rem;
+  margin-bottom: 0.4rem;
+  font-size: 1rem;
+  font-weight: 500;
 }

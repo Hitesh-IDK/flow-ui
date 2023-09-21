@@ -1,8 +1,54 @@
 .options__container {
   display: flex;
   flex-direction: column;
+
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .option {
-    
+  background-color: #3772a9;
+  color: white;
+  padding: 10px 15px;
+  border: 1px solid #b2cde6;
+
+  width: inherit;
+}
+
+.option:hover {
+  background-color: #32689a;
+}
+
+.option:first-child {
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+.option:last-child {
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.options {
+  position: relative;
+  max-width: 400px;
+  width: 100%;
+
+  cursor: pointer;
+}
+
+.options__active {
+  padding: 10px 15px;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
+.options__inactive {
+  position: absolute;
+  width: inherit;
+
+  z-index: 2;
 }

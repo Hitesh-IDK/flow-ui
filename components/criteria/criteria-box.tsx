@@ -7,12 +7,29 @@ export default function () {
     "Marketing Staff",
     "Service Staff",
   ];
-  const comparision: string[] = ["Achieved", "Refused", "Pending"];
+  const comparisionOptions: string[] = ["Achieved", "Refused", "Pending"];
+
+  //TODO FIX THIS
+  const checkActive = (isActive: boolean) => {
+    if (isActive) {
+    }
+  };
+
   return (
     <div className={styles.container__main}>
       <div className={styles.criteria__field}>
-        <label>Field</label>
-        <Dropdown name="Field" options={fieldOptions} />
+        <label className={styles.field__name}>Field</label>
+        <Dropdown
+          name="Field"
+          options={fieldOptions}
+          checkActive={checkActive}
+        />
+        <label className={styles.field__name}>Comparision</label>
+        <Dropdown
+          name="Comparision"
+          options={comparisionOptions}
+          checkActive={checkActive}
+        />
       </div>
     </div>
   );
