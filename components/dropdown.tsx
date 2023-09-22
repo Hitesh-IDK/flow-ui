@@ -1,30 +1,36 @@
 "use client";
 
+import { State } from "./criteria/add-condition";
+import { DropdownCtx, States } from "./dropdown-ctx";
 import styles from "./dropdown.module.css";
-import { useState, Dispatch } from "react";
-import { Dropdowns } from "./criteria/criteria-box";
+import { useState, Dispatch, useContext } from "react";
 
 //Input props interface
 interface Props {
   name: string;
   options: string[];
-  state: Dropdowns;
-  toggleActive(state: boolean, setState: Dispatch<boolean>): void;
+  state: State;
+  toggleActive(
+    state: boolean,
+    setIsActive: Dispatch<boolean>,
+    allStates: States[]
+  ): void;
 }
 
 export default function (props: Props): JSX.Element {
   //Active option state
-  const [activeOption, setActiveOption] = useState(`Select a ${props.name}`);
+  const [activeOption, setActiveOption] = useState(`${props.name}`);
   //is dropdown active state
-  const { isActive, setIsActive }: Dropdowns = props.state;
+  const { isActive, setIsActive }: State = props.state;
   //toggle dropdown function
   const toggleActive = props.toggleActive;
+  const { allStates } = useContext(DropdownCtx);
 
   //Change active option based on state
   const changeActiveOption = (event: React.MouseEvent): void => {
     const element = event.target as HTMLElement;
     if (element.textContent) setActiveOption(element.textContent);
-    if (isActive) toggleActive(false, setIsActive);
+    if (isActive) toggleActive(false, setIsActive, allStates);
   };
 
   //Render each option dynamically
@@ -38,8 +44,8 @@ export default function (props: Props): JSX.Element {
 
   //To toggle dropdown
   const toggleDropdown = (): void => {
-    if (isActive) toggleActive(false, setIsActive);
-    else toggleActive(true, setIsActive);
+    if (isActive) toggleActive(false, setIsActive, allStates);
+    else toggleActive(true, setIsActive, allStates);
   };
 
   return (

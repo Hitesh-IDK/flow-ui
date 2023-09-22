@@ -7,11 +7,12 @@
 .custom__radio {
   display: flex;
   align-items: center;
-  margin-bottom: 0.6rem;
+  margin: 0.7rem 0px;
 }
 
 .radio__text {
-  font-size: 1rem;
+  color: rgba(0, 0, 0, 0.795);
+  font-size: 0.9rem;
 }
 
 .radio__circle {

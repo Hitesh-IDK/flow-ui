@@ -1,5 +1,4 @@
 import styles from "./add-condition.module.css";
-import radioStyles from "../radio-button.module.css";
 
 import { Dispatch, useState } from "react";
 import RadioButton from "../radio-button";
@@ -41,5 +40,5 @@ export default function (): JSX.Element {
     />
   ));
 
-  return <>{renderConditions}</>;
+  return <div className={styles.condition__container}>{renderConditions}</div>;
 }
