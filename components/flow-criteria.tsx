@@ -9,7 +9,7 @@ import discardIcon from "@/public/icons/discardIcon.svg";
 import Tooltip from "./tooltip";
 import CriteriaBox from "./criteria/criteria-box";
 
-export default function () {
+export default function (): JSX.Element {
   return (
     <div className={parentStyles.criteria__container}>
       <div className={styles.header}>
