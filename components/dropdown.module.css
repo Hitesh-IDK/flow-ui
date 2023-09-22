@@ -10,16 +10,16 @@
 }
 
 .option {
-  background-color: #3772a9;
-  color: white;
+  background-color: white;
+  color: black;
   padding: 10px 15px;
-  border: 1px solid #b2cde6;
+  border-bottom: 1px solid #12283d;
 
   width: inherit;
 }
 
 .option:hover {
-  background-color: #32689a;
+  background-color: #e6fffe;
 }
 
 .option:first-child {

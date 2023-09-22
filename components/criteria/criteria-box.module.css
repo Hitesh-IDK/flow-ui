@@ -1,12 +1,14 @@
 .container__main {
 }
 
-.criteria__field {
+.criteria__type {
   display: flex;
   flex-direction: column;
+
+  margin-bottom: 2rem;
 }
 
-.field__name {
+.type__name {
   margin-top: 1.3rem;
   margin-bottom: 0.4rem;
   font-size: 1rem;
