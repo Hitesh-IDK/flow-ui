@@ -1,6 +1,6 @@
 import styles from "./add-criteria.module.css";
 import { useEffect, useState, Dispatch, Context, useContext } from "react";
-import Dropdown from "@/components/dropdown";
+import Dropdown from "@/components/helpers/dropdown";
 import { DropdownCtx, Dropdowns } from "../dropdown-ctx";
 
 export default function (): JSX.Element {
@@ -22,6 +22,7 @@ export default function (): JSX.Element {
   return (
     <div className={styles.new__container}>
       <div className={styles.criteria__type}>
+        <span className={styles.criteria__indicator}>Crtieria 1</span>
         <label className={styles.type__name}>Field</label>
         <Dropdown
           name="Select a Field"

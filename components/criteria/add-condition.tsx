@@ -1,7 +1,7 @@
 import styles from "./add-condition.module.css";
 
 import { Dispatch, useState } from "react";
-import RadioButton from "../radio-button";
+import RadioButton from "@/components/helpers/radio-button";
 
 export type State = { isActive: boolean; setIsActive: Dispatch<boolean> };
 //TODO
@@ -40,5 +40,10 @@ export default function (): JSX.Element {
     />
   ));
 
-  return <div className={styles.condition__container}>{renderConditions}</div>;
+  return (
+    <div className={styles.condition__container}>
+      <span className={styles.condition__indicator}>Logical Operator</span>
+      {renderConditions}
+    </div>
+  );
 }

@@ -4,4 +4,19 @@
   padding: 10px 10px;
   border: 2px solid rgba(128, 128, 128, 0.315);
   border-radius: 7px;
+
+  position: relative;
+}
+
+.condition__indicator {
+  position: absolute;
+  display: inline-block;
+  background-color: white;
+
+  font-size: 0.9rem;
+  width: 8rem;
+  text-align: center;
+
+  top: -11%;
+  left: 6%;
 }

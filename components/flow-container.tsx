@@ -1,6 +1,6 @@
 import { DropdownProvider } from "./dropdown-ctx";
 import styles from "./flow-container.module.css";
-import FlowCriteria from "./flow-criteria";
+import FlowCriteria from "./criteria/flow-criteria";
 
 export default function FlowContainer(): JSX.Element {
   return (

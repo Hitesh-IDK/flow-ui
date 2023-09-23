@@ -1,7 +1,6 @@
 "use client";
 
-import { State } from "./criteria/add-condition";
-import { DropdownCtx, States } from "./dropdown-ctx";
+import { DropdownCtx, States } from "../dropdown-ctx";
 import styles from "./dropdown.module.css";
 import { useState, Dispatch, useContext } from "react";
 
@@ -9,7 +8,7 @@ import { useState, Dispatch, useContext } from "react";
 interface Props {
   name: string;
   options: string[];
-  state: State;
+  state: States;
   toggleActive(
     state: boolean,
     setIsActive: Dispatch<boolean>,
@@ -21,7 +20,7 @@ export default function (props: Props): JSX.Element {
   //Active option state
   const [activeOption, setActiveOption] = useState(`${props.name}`);
   //is dropdown active state
-  const { isActive, setIsActive }: State = props.state;
+  const { isActive, setIsActive }: States = props.state;
   //toggle dropdown function
   const toggleActive = props.toggleActive;
   const { allStates } = useContext(DropdownCtx);

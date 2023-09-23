@@ -25,6 +25,7 @@
   border-radius: 100%;
 
   margin-right: 0.5rem;
+  cursor: pointer;
 }
 
 .radio__unchecked {

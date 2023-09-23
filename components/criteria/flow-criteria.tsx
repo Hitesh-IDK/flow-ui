@@ -2,12 +2,12 @@
 
 import Image from "next/image";
 
-import parentStyles from "./flow-container.module.css";
+import parentStyles from "../flow-container.module.css";
 import styles from "./flow-criteria.module.css";
 
 import discardIcon from "@/public/icons/discardIcon.svg";
-import Tooltip from "./tooltip";
-import CriteriaBox from "./criteria/criteria-box";
+import Tooltip from "@/components/helpers/tooltip";
+import CriteriaBox from "./criteria-box";
 
 export default function (): JSX.Element {
   return (

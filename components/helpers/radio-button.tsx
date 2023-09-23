@@ -1,12 +1,12 @@
 import { MouseEvent } from "react";
 import styles from "./radio-button.module.css";
-import { State } from "./criteria/add-condition";
+import { States } from "../dropdown-ctx";
 
 interface Radio {
   name: string;
   label: string;
   value: string;
-  state: State;
+  state: States;
   handleChange: CallableFunction;
 }
 

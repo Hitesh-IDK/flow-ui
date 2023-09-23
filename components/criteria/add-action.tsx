@@ -1,5 +1,5 @@
 import styles from "./add-action.module.css";
-import Dropdown from "../dropdown";
+import Dropdown from "@/components/helpers/dropdown";
 import { useContext } from "react";
 import { DropdownCtx, States } from "../dropdown-ctx";
 
@@ -11,6 +11,7 @@ export default function (): JSX.Element {
 
   return (
     <div className={styles.action__container}>
+      <span className={styles.action__indicator}>Action</span>
       <label className={styles.type__name}>Transition To</label>
       <Dropdown
         name="Select an Action"
