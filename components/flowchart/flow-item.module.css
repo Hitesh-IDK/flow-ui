@@ -1,0 +1,82 @@
+.item__container {
+  display: grid;
+  gap: 2rem;
+
+  grid-template-columns: 5rem auto;
+  margin-bottom: 3rem;
+  align-items: center;
+}
+
+.item__indicator_container {
+  display: flex;
+  justify-content: flex-end;
+
+  color: white;
+  transition: all 330ms ease-in-out;
+  position: relative;
+}
+
+.item__indicator {
+  background-color: #3c2e3d93;
+}
+
+.item__indicator_word {
+  padding: 15px 25px;
+  border-radius: 20px;
+  display: inline-block;
+
+  width: 5rem;
+  height: 2.5rem;
+
+  max-height: 3.1rem;
+}
+
+.item__indicator_num {
+  padding: 10px 20px;
+  border-radius: 5px;
+  max-height: 3rem;
+
+  margin-right: 1.3rem;
+}
+
+.item__box {
+  background-color: white;
+
+  border: 2px solid rgba(128, 128, 128, 0.363);
+  border-radius: 10px;
+  padding: 15px 20px;
+  box-shadow: 0px 10px 20px rgba(128, 128, 128, 0.212);
+
+  width: 25rem;
+  max-width: 25rem;
+
+  cursor: pointer;
+}
+
+.item__label {
+  font-size: 1.03rem;
+  font-weight: 500;
+  margin-bottom: 0.1rem;
+}
+
+.item__desc {
+  font-size: 0.9rem;
+  color: rgba(0, 0, 0, 0.692);
+}
+
+.item__box_active {
+  border: 3px solid #49a5a2;
+  box-shadow: 0px 10px 10px rgba(128, 128, 128, 0.322);
+}
+
+.item__indicator_num_active {
+  transform: rotate(45deg);
+
+  padding: 20px;
+}
+
+.indicator__text {
+  display: inline-block;
+
+  position: absolute;
+}

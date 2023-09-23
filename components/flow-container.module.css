@@ -18,10 +18,22 @@
   justify-content: center;
   height: 100vh;
   align-items: center;
+
+  user-select: none;
+
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 .flow__container {
   width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .criteria__container {
