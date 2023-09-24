@@ -22,7 +22,6 @@ export default function ({ itemType, label, desc, id }: FlowItem): JSX.Element {
   }`;
 
   const indicatorTextStyles = activeItem === id ? styles.indicator__text : "";
-  console.log(indicatorTextStyles, activeItem === id);
 
   const itemClickHandler = (event: MouseEvent): void => {
     changeActiveItem(id, setActiveItem);
@@ -31,12 +30,37 @@ export default function ({ itemType, label, desc, id }: FlowItem): JSX.Element {
   return (
     <div className={styles.item__container}>
       <div className={styles.item__indicator_container}>
-        <span className={indicatorStyles}></span>
-        <span className={indicatorTextStyles}>
-          {["start", "end"].includes(itemType)
-            ? `${itemType.slice(0, 1).toUpperCase()}${itemType.slice(1)}`
-            : `${id}`}
-        </span>
+        {["start", "end"].includes(itemType) ? (
+          <>
+            <span
+              className={`${styles.indicator__word} ${
+                activeItem === id ? styles.indicator__word_active : ""
+              }`}
+            >
+              {itemType}
+            </span>
+            <span
+              className={`${styles.indicator__box_word} ${
+                activeItem === id ? styles.indicator__box_word_active : ""
+              }`}
+            ></span>
+          </>
+        ) : (
+          <>
+            <span
+              className={`${styles.indicator__num} ${
+                activeItem === id ? styles.indicator__num_active : ""
+              }`}
+            >
+              {id}
+            </span>
+            <span
+              className={`${styles.indicator__box_num} ${
+                activeItem === id ? styles.indicator__box_num_active : ""
+              }`}
+            ></span>
+          </>
+        )}
       </div>
       <div className={itemBoxStyles} onClick={itemClickHandler}>
         <div className={styles.item__label}>{label}</div>
