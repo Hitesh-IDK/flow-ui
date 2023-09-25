@@ -1,0 +1,11 @@
+.modal__backdrop {
+  position: absolute;
+
+  width: inherit;
+  height: inherit;
+
+  z-index: 3;
+  background-color: rgba(0, 0, 0, 0.493);
+
+  backdrop-filter: blur(2px);
+}

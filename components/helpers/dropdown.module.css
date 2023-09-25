@@ -13,7 +13,9 @@
   background-color: white;
   color: black;
   padding: 10px 15px;
-  border-bottom: 1px solid #12283d;
+
+  border-right: 1px solid #12283db6;
+  border-left: 1px solid #12283db6;
 
   width: inherit;
 }
@@ -30,6 +32,8 @@
 .option:last-child {
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
+
+  border-bottom: 1px solid #12283d;
 }
 
 .options {
@@ -41,6 +45,10 @@
 }
 
 .options__active {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
   padding: 10px 15px;
   border: 1px solid gray;
   border-radius: 5px;

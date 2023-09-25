@@ -30,6 +30,14 @@ const demoSetFlowItems: Dispatch<FlowItem[]> =
 const demoSetActiveItem: Dispatch<number> =
   "placeHolder" as unknown as Dispatch<number>;
 
+const defaultFlowItem: FlowItem = {
+  itemType: "node",
+  label: "New Request",
+  desc: "Field: Set Service",
+  id: 0,
+  isActive: false,
+};
+
 const changeActiveItem = (
   id: number,
   setActiveItem: Dispatch<number>
@@ -43,6 +51,7 @@ export interface ContextValue {
   activeItem: number;
   setActiveItem: Dispatch<number>;
   changeActiveItem(id: number, setActiveItem: Dispatch<number>): void;
+  createFlowItem(afterId: number, item?: FlowItem): void;
 }
 
 export const ChartCtx: Context<ContextValue> = createContext({
@@ -51,6 +60,7 @@ export const ChartCtx: Context<ContextValue> = createContext({
   activeItem: 0,
   setActiveItem: demoSetActiveItem,
   changeActiveItem,
+  createFlowItem: function (afterId: number, item?: FlowItem) {},
 });
 
 export default function (props: PropsWithChildren): JSX.Element {
@@ -62,20 +72,20 @@ export default function (props: PropsWithChildren): JSX.Element {
       id: 0,
       isActive: false,
     },
-    {
-      itemType: "node",
-      label: "New Request",
-      desc: "Info: Request Service",
-      id: 0,
-      isActive: false,
-    },
-    {
-      itemType: "node",
-      label: "New Request",
-      desc: "Info: Request Service",
-      id: 0,
-      isActive: false,
-    },
+    // {
+    //   itemType: "node",
+    //   label: "New Request 1",
+    //   desc: "Info: Request Service",
+    //   id: 0,
+    //   isActive: false,
+    // },
+    // {
+    //   itemType: "node",
+    //   label: "New Request 2",
+    //   desc: "Info: Request Service",
+    //   id: 0,
+    //   isActive: false,
+    // },
     {
       itemType: "end",
       label: "End of a request",
@@ -87,6 +97,18 @@ export default function (props: PropsWithChildren): JSX.Element {
 
   const [activeItem, setActiveItem]: [number, Dispatch<number>] = useState(0);
 
+  const createFlowItem = (
+    afterId: number,
+    item: FlowItem = defaultFlowItem
+  ): void => {
+    const newFlowItems = flowItems
+      .splice(0, afterId + 1)
+      .concat(item)
+      .concat(flowItems);
+
+    setFlowItems(newFlowItems);
+  };
+
   return (
     <ChartCtx.Provider
       value={{
@@ -95,6 +117,7 @@ export default function (props: PropsWithChildren): JSX.Element {
         activeItem,
         setActiveItem,
         changeActiveItem,
+        createFlowItem,
       }}
     >
       {props.children}

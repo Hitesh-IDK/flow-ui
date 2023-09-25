@@ -1,0 +1,42 @@
+.line__active {
+  grid-column: 1/-1;
+  justify-self: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.line__inActive {
+  grid-column: 1/-1;
+  justify-self: center;
+}
+
+.arrow__down {
+  opacity: 0.7;
+  width: auto;
+}
+
+.arrow__short {
+  opacity: 0.7;
+}
+
+.add__item {
+  width: 1.5rem;
+  height: auto;
+}
+
+.add__container {
+  background-color: rgba(255, 255, 255, 0.63);
+  border-radius: 100%;
+  border: 3px solid #49a5a2;
+  padding: 0;
+  transition: all 200ms ease-in-out;
+
+  cursor: pointer;
+}
+
+.add__container:hover {
+  padding: 2px;
+  background-color: white;
+}

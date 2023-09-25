@@ -5,6 +5,8 @@
 
   padding: 10px 20px;
 
+  max-width: 10rem;
+
   font-size: 0.8rem;
   color: white;
   background-color: #0f1f2e;
@@ -19,12 +21,13 @@
   border-right: 15px solid transparent;
   border-bottom: 15px solid #0f1f2e;
   bottom: 80%;
-  left: 45%;
+  left: 35%;
   margin-left: -5px;
   margin-top: -5px;
 }
 
 .tooltip {
   position: relative;
+  width: inherit;
   z-index: 2;
 }

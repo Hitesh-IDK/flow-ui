@@ -3,6 +3,9 @@
 import { DropdownCtx, States } from "../dropdown-ctx";
 import styles from "./dropdown.module.css";
 import { useState, Dispatch, useContext } from "react";
+import expandMore from "@/public/icons/expand_more.svg";
+import expandLess from "@/public/icons/expand_less.svg";
+import Image from "next/image";
 
 //Input props interface
 interface Props {
@@ -50,7 +53,15 @@ export default function (props: Props): JSX.Element {
   return (
     <div className={styles.options__container}>
       <div className={styles.options} onClick={toggleDropdown}>
-        <div className={styles.options__active}>{activeOption}</div>
+        <div className={styles.options__active}>
+          {activeOption}
+          <span>
+            <Image
+              src={isActive ? expandLess : expandMore}
+              alt="expand and condense"
+            />
+          </span>
+        </div>
         <div className={styles.options__inactive}>
           {isActive && optionElements}
         </div>

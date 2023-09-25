@@ -1,0 +1,8 @@
+.modal__container {
+  position: absolute;
+
+  width: inherit;
+  height: inherit;
+
+  background-color: rgba(0, 0, 0, 0.185);
+}
