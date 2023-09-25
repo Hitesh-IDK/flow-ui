@@ -14,7 +14,6 @@ import AddModal from "./add-modal";
 
 export default function ({
   isActive,
-  id,
 }: {
   isActive: boolean;
   id: number;
@@ -22,7 +21,7 @@ export default function ({
   const { createFlowItem } = useContext(ChartCtx);
   const { modalActive, setModalActive } = useContext(ModalCtx);
 
-  const addHandler = (event: MouseEvent) => {
+  const addHandler = () => {
     setModalActive(true);
   };
 

@@ -1,7 +1,7 @@
 .main__container {
   display: grid;
 
-  grid-template-columns: auto repeat(3, 1fr);
+  grid-template-columns: auto;
   gap: 0px;
 }
 

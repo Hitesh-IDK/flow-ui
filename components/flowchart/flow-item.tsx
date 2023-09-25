@@ -64,9 +64,6 @@ export default function ({ itemType, label, desc, id }: FlowItem): JSX.Element {
           <LineToFrom isActive={activeItem === id} id={id} />
         )}
       </div>
-
-      {/* TODO Start working on adding dynamic arrows here */}
-      <div className="">a</div>
     </div>
   );
 }
