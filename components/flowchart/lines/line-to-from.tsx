@@ -2,9 +2,8 @@
 
 import React, { Dispatch, JSX, MouseEvent, useContext, useState } from "react";
 import styles from "./line-to-from.module.css";
-import arrowDown from "@/public/arrows/arrowDown.png";
-import arrowWithoutHead from "@/public/arrows/arrowWithoutHead.png";
-import shortArrow from "@/public/arrows/shortArrow.png";
+import arrowDown from "@/public/arrows/arrowDown.svg";
+import lineStart from "@/public/arrows/line_start.svg";
 import add from "@/public/icons/plus_sign.svg";
 import Image from "next/image";
 import Tooltip from "@/components/helpers/tooltip";
@@ -31,9 +30,9 @@ export default function ({
       {isActive ? (
         <div className={styles.line__active}>
           <Image
-            src={arrowWithoutHead}
+            src={lineStart}
             alt="point to"
-            className={styles.arrow__down}
+            className={styles.line__start}
           />
           <Tooltip content="New Request">
             <div className={styles.add__container} onClick={addHandler}>
@@ -45,7 +44,7 @@ export default function ({
             </div>
           </Tooltip>
           <Image
-            src={shortArrow}
+            src={arrowDown}
             alt="short arrow pointing"
             className={styles.arrow__short}
           />

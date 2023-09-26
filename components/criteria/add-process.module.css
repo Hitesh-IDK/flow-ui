@@ -1,0 +1,143 @@
+.main__container {
+  margin-top: 2.5rem;
+}
+
+.hidden {
+  opacity: 0;
+
+  transform: translateY(3rem);
+}
+
+.field__container {
+  padding: 15px 10px;
+  border: 2px solid rgba(128, 128, 128, 0.315);
+  border-radius: 7px;
+
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.add__indicator {
+  position: absolute;
+  display: inline-block;
+  background-color: white;
+
+  font-size: 0.9rem;
+  width: 7rem;
+  text-align: center;
+
+  top: -5%;
+  left: 6%;
+}
+
+.name__container {
+  display: flex;
+  flex-direction: column;
+
+  /* padding: 0px 1rem; */
+  margin-bottom: 1rem;
+  margin-top: 0.4rem;
+}
+
+.name__title {
+  font-size: 1rem;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.911);
+
+  margin-bottom: 0.4rem;
+}
+
+.desc__container {
+  display: flex;
+  flex-direction: column;
+
+  /* padding: 0px 1rem; */
+}
+
+.desc__title {
+  font-size: 1rem;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.911);
+
+  margin-bottom: 0.4rem;
+}
+
+.input {
+  appearance: none;
+
+  height: 2.7rem;
+  border-radius: 5px;
+
+  font-size: 1.1rem;
+  color: rgba(0, 0, 0, 0.726);
+
+  padding: 0px 0.7rem;
+  border: 2px solid rgba(105, 105, 105, 0.507);
+}
+
+.btn__add {
+  appearance: none;
+  transition: all 330ms ease-in-out;
+
+  border: 1px solid gray;
+  border-radius: 5px;
+
+  font-size: 1rem;
+  color: rgb(46, 46, 46);
+  background-color: rgb(253, 253, 253);
+  box-shadow: 0px 10px 20px rgba(128, 128, 128, 0.199);
+
+  padding: 15px 20px;
+  width: 100%;
+
+  cursor: pointer;
+}
+
+.btn__add:hover {
+  background-color: #49a5a2;
+  color: azure;
+  box-shadow: 0px 10px 10px rgba(128, 128, 128, 0.322);
+}
+
+.btn__add_container {
+  display: flex;
+  justify-content: center;
+
+  transition: all 220ms ease-in-out;
+}
+
+.item__container_main {
+  margin: 1rem 0.4rem;
+}
+
+.item__container {
+  background-color: white;
+
+  border: 2px solid rgba(128, 128, 128, 0.5);
+  border-radius: 10px;
+  padding: 15px 20px;
+  box-shadow: 0px 10px 20px rgba(128, 128, 128, 0.212);
+
+  width: 100%;
+  max-width: 25rem;
+
+  cursor: grab;
+
+  transition: all 220ms ease-in-out;
+}
+
+.item__container:hover {
+  border: 3px solid #49a5a2;
+  box-shadow: 0px 10px 10px rgba(128, 128, 128, 0.322);
+}
+
+.item__label {
+  font-size: 1.03rem;
+  font-weight: 500;
+  margin-bottom: 0.1rem;
+}
+
+.item__desc {
+  font-size: 0.9rem;
+  color: rgba(0, 0, 0, 0.692);
+}
