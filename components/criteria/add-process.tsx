@@ -1,15 +1,22 @@
-import React, { useContext, useState, ChangeEvent } from "react";
+import React, {
+  useContext,
+  useState,
+  ChangeEvent,
+  DragEvent,
+  useEffect,
+} from "react";
 import { ChartCtx, FlowItem } from "../flowchart/chart-ctx";
 import { ModalCtx } from "../modal-ctx";
 import styles from "./add-process.module.css";
-import Draggable from "react-draggable";
+import { AddCtx } from "./add-process-ctx";
 
 export default function (): React.JSX.Element {
-  const [nameInput, setNameInput] = useState("");
-  const [descInput, setDescInput] = useState("");
+  const { title, desc, resetData } = useContext(AddCtx);
+  const { titleInput, setTitleInput } = title;
+  const { descInput, setDescInput } = desc;
 
   const [addActive, setAddActive] = useState(false);
-  const { activeItem: afterId } = useContext(ChartCtx);
+  const { activeItem: afterId, createFlowItem } = useContext(ChartCtx);
 
   //   const { modalActive, setModalActive } = useContext(ModalCtx);
 
@@ -18,7 +25,7 @@ export default function (): React.JSX.Element {
     if (value.length > 0) setAddActive(true);
     else setAddActive(false);
 
-    setNameInput(value);
+    setTitleInput(value);
   };
 
   const descChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -26,27 +33,29 @@ export default function (): React.JSX.Element {
     setDescInput(value);
   };
 
+  useEffect(() => {
+    if (titleInput.length === 0) setAddActive(false);
+  }, [titleInput, descInput]);
+
   const addHandler = () => {
     const item: FlowItem = {
       itemType: "node",
-      label: nameInput,
+      label: titleInput,
       desc: `Info: ${descInput}`,
       id: afterId + 1,
       isActive: false,
     };
 
-    // createFlowItem(afterId, item);
+    createFlowItem(afterId, item);
 
     // if (modalActive) setModalActive(false);
-    setDescInput("");
-    setNameInput("");
+    resetData();
   };
 
   const closeHandler = () => {
     // if (modalActive) setModalActive(false);
 
-    setDescInput("");
-    setNameInput("");
+    resetData();
   };
 
   const addButtonStyles = `${styles.btn__add_container} ${
@@ -57,6 +66,11 @@ export default function (): React.JSX.Element {
     addActive ? "" : styles.hidden
   }`;
 
+  const dragHandler = (event: DragEvent) => {
+    event.preventDefault();
+    // console.log(event);
+  };
+
   return (
     <div className={styles.main__container}>
       <div className={styles.field__container}>
@@ -66,7 +80,7 @@ export default function (): React.JSX.Element {
           <input
             type="text"
             className={styles.input}
-            value={nameInput}
+            value={titleInput}
             onChange={nameChangeHandler}
           />
         </div>
@@ -80,14 +94,19 @@ export default function (): React.JSX.Element {
           />
         </div>
       </div>
-      <Draggable>
-        <div className={itemStyles}>
-          <div className={styles.item__container}>
-            <div className={styles.item__label}>{nameInput}</div>
-            <div className={styles.item__desc}>{`Info: ${descInput}`}</div>
-          </div>
+      {/* <Draggable bounds="parent"> */}
+      <div
+        className={itemStyles}
+        draggable
+        onDrag={dragHandler}
+        data-name="item"
+      >
+        <div className={styles.item__container}>
+          <div className={styles.item__label}>{titleInput}</div>
+          <div className={styles.item__desc}>{`Info: ${descInput}`}</div>
         </div>
-      </Draggable>
+      </div>
+      {/* </Draggable> */}
       <div className={addButtonStyles}>
         <button className={styles.btn__add} onClick={addHandler}>
           Add Process

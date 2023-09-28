@@ -1,6 +1,13 @@
 "use client";
 
-import React, { Dispatch, JSX, MouseEvent, useContext, useState } from "react";
+import React, {
+  Dispatch,
+  DragEvent,
+  JSX,
+  MouseEvent,
+  useContext,
+  useState,
+} from "react";
 import styles from "./line-to-from.module.css";
 import arrowDown from "@/public/arrows/arrowDown.svg";
 import lineStart from "@/public/arrows/line_start.svg";
@@ -19,9 +26,35 @@ export default function ({
 }): JSX.Element {
   const { createFlowItem } = useContext(ChartCtx);
   const { modalActive, setModalActive } = useContext(ModalCtx);
+  const [dragActive, setDragActive] = useState(false);
 
   const addHandler = () => {
     setModalActive(true);
+  };
+
+  const draggedItemHandler = (event: DragEvent) => {
+    event.preventDefault();
+    console.log("ON", event);
+
+    setDragActive(true);
+  };
+
+  const undoDraggedItem = (event: DragEvent) => {
+    event.preventDefault();
+    console.log("OFF", event);
+
+    setDragActive(false);
+  };
+
+  const activeDragHandler = (event: DragEvent) => {
+    event.preventDefault();
+  };
+
+  const dropHandler = (event: DragEvent) => {
+    event.preventDefault();
+    console.log("DROP", event);
+
+    setDragActive(false);
   };
 
   return (

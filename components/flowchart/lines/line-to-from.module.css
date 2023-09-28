@@ -59,3 +59,7 @@
   padding: 2px;
   background-color: white;
 }
+
+.add__container_hidden {
+  opacity: 0;
+}
