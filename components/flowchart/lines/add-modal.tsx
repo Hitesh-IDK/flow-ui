@@ -11,17 +11,21 @@ import {
 } from "react";
 import closeIcon from "@/public/icons/close.svg";
 import Image from "next/image";
-import { ChartCtx, FlowItem } from "../chart-ctx";
+import { ActiveFlow, ChartCtx, FlowItem } from "../chart-ctx";
 import { ModalCtx } from "@/components/modal-ctx";
 
 interface Props {
-  createFlowItem(afterId: number, item: FlowItem): void;
+  createFlowItem(listNo: number, afterId: number, item: FlowItem): void;
 }
 
 export default function ({ createFlowItem }: Props): JSX.Element {
   const [nameInput, setNameInput] = useState("");
   const [descInput, setDescInput] = useState("");
-  const { activeItem: afterId } = useContext(ChartCtx);
+  const {
+    activeData: {
+      data: { listNo, node: afterId },
+    },
+  } = useContext(ChartCtx);
 
   const { modalActive, setModalActive } = useContext(ModalCtx);
 
@@ -39,12 +43,12 @@ export default function ({ createFlowItem }: Props): JSX.Element {
     const item: FlowItem = {
       itemType: "node",
       label: nameInput,
-      desc: `Info: ${descInput}`,
+      desc: descInput,
       id: afterId + 1,
       isActive: false,
     };
 
-    createFlowItem(afterId, item);
+    createFlowItem(listNo, afterId, item);
 
     if (modalActive) setModalActive(false);
     setDescInput("");

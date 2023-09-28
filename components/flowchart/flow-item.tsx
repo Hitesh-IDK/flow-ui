@@ -9,20 +9,40 @@ import { AddCtx } from "../criteria/add-process-ctx";
 
 export default function ({ itemType, label, desc, id }: FlowItem): JSX.Element {
   // Import context states for flow charts
-  const { activeItem, setActiveItem, changeActiveItem, createFlowItem } =
-    useContext(ChartCtx);
-  const { title: titleState, desc: descState, resetData } = useContext(AddCtx);
+  const {
+    activeData,
+    changeActiveItem,
+    createFlowItem,
+    flowList,
+    replaceFlowItem,
+  } = useContext(ChartCtx);
+
+  const {
+    data: { listNo, node },
+    setData: setActiveData,
+  } = activeData;
+
+  const { flowItems } = flowList[listNo];
+
+  const {
+    title: titleState,
+    desc: descState,
+    origin: originState,
+    resetData,
+  } = useContext(AddCtx);
+
   const [dragActive, setDragActive] = useState(false);
   const [dragCount, setDragCount] = useState(0);
 
   //Set item box styles based on activeItem, if activeItem === id then this item is active
   const itemBoxStyles = `${styles.item__box} ${
-    activeItem === id ? styles.item__box_active : ""
+    node === id ? styles.item__box_active : ""
   }`;
 
   //When item clicked, set the item as active using context imported function
   const itemClickHandler = (event: MouseEvent): void => {
-    changeActiveItem(id, setActiveItem);
+    changeActiveItem(id, listNo, setActiveData);
+    // changeActiveItem(id, setActiveItem);
   };
 
   const dragEnterHandler = (event: DragEvent) => {
@@ -44,6 +64,17 @@ export default function ({ itemType, label, desc, id }: FlowItem): JSX.Element {
   const dropHandler = (event: DragEvent) => {
     event.preventDefault();
 
+    resetData();
+    setDragCount(0);
+
+    if (["end"].includes(itemType)) return;
+    if (
+      originState.originNode === id ||
+      originState.originNode === 0 ||
+      originState.originNode === flowItems.length - 1
+    )
+      return;
+
     const item: FlowItem = {
       itemType: "node",
       label: titleState.titleInput,
@@ -52,9 +83,20 @@ export default function ({ itemType, label, desc, id }: FlowItem): JSX.Element {
       isActive: false,
     };
 
-    createFlowItem(id, item);
-    resetData();
-    setDragCount(0);
+    if (originState.originNode > 0)
+      replaceFlowItem(listNo, originState.originNode, id, item);
+    else createFlowItem(listNo, id, item);
+  };
+
+  const dragHandler = (event: DragEvent) => event.preventDefault();
+  const dragStartHandler = (event: DragEvent) => {
+    originState.setOriginNode(id);
+
+    titleState.setTitleInput(label);
+    descState.setDescInput(desc);
+  };
+  const dragEndHandler = () => {
+    originState.setOriginNode(-1);
   };
 
   useEffect(() => {
@@ -70,20 +112,24 @@ export default function ({ itemType, label, desc, id }: FlowItem): JSX.Element {
         onDragEnter={dragEnterHandler}
         onDragLeave={dragLeaveHandler}
         onDrop={dropHandler}
+        draggable
+        onDragEnd={dragEndHandler}
+        onDragStart={dragStartHandler}
+        onDrag={dragHandler}
       >
         <div className={styles.item__indicator_container}>
           {["start", "end"].includes(itemType) ? (
             <>
               <span
                 className={`${styles.indicator__word} ${
-                  activeItem === id ? styles.indicator__word_active : ""
+                  node === id ? styles.indicator__word_active : ""
                 }`}
               >
                 {itemType}
               </span>
               <span
                 className={`${styles.indicator__box_word} ${
-                  activeItem === id ? styles.indicator__box_word_active : ""
+                  node === id ? styles.indicator__box_word_active : ""
                 }`}
               ></span>
             </>
@@ -91,14 +137,14 @@ export default function ({ itemType, label, desc, id }: FlowItem): JSX.Element {
             <>
               <span
                 className={`${styles.indicator__num} ${
-                  activeItem === id ? styles.indicator__num_active : ""
+                  node === id ? styles.indicator__num_active : ""
                 }`}
               >
                 {id}
               </span>
               <span
                 className={`${styles.indicator__box_num} ${
-                  activeItem === id ? styles.indicator__box_num_active : ""
+                  node === id ? styles.indicator__box_num_active : ""
                 }`}
               ></span>
             </>
@@ -111,9 +157,7 @@ export default function ({ itemType, label, desc, id }: FlowItem): JSX.Element {
 
         {dragActive
           ? itemType !== "end" && <DragLine />
-          : itemType !== "end" && (
-              <LineToFrom isActive={activeItem === id} id={id} />
-            )}
+          : itemType !== "end" && <LineToFrom isActive={node === id} id={id} />}
       </div>
     </div>
   );

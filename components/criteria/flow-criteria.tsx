@@ -13,10 +13,21 @@ import { useContext } from "react";
 import { ChartCtx } from "../flowchart/chart-ctx";
 
 export default function (): JSX.Element {
-  const { setActiveItem } = useContext(ChartCtx);
+  const {
+    activeData: {
+      data: { listNo, node },
+      setData: setActiveData,
+    },
+    deleteFlowItem,
+  } = useContext(ChartCtx);
 
   const closeHandler = () => {
-    setActiveItem(-1);
+    // setActiveItem(-1);
+    setActiveData({ listNo, node: -1 });
+  };
+
+  const discardHandler = () => {
+    deleteFlowItem(listNo, node);
   };
 
   return (
@@ -32,7 +43,7 @@ export default function (): JSX.Element {
         </div>
         <div className={styles.header__buttons}>
           <Tooltip content="Discard">
-            <button className={styles.btn__discard}>
+            <button className={styles.btn__discard} onClick={discardHandler}>
               <Image src={discardIcon} alt="discord criteria" />
             </button>
           </Tooltip>

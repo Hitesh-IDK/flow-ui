@@ -3,11 +3,18 @@
 import styles from "./flow-chart.module.css";
 import parentStyles from "../flow-container.module.css";
 import FlowItemElement from "./flow-item";
-import { ChartCtx, FlowItem } from "./chart-ctx";
+import { ActiveFlow, ChartCtx, FlowInterface, FlowItem } from "./chart-ctx";
 import { useContext } from "react";
 
 export default function (): JSX.Element {
-  const { flowItems }: { flowItems: FlowItem[] } = useContext(ChartCtx);
+  const {
+    flowList,
+    activeData: {
+      data: { listNo, node },
+    },
+  }: { flowList: FlowInterface[]; activeData: ActiveFlow } =
+    useContext(ChartCtx);
+  const { flowItems } = flowList[listNo];
 
   const flowItemElements: JSX.Element[] = flowItems.map(
     (item: FlowItem, i: number) => {

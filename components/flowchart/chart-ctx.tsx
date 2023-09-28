@@ -6,6 +6,7 @@ import {
   MouseEvent,
   PropsWithChildren,
   createContext,
+  useEffect,
   useState,
 } from "react";
 
@@ -15,6 +16,20 @@ export interface FlowItem {
   desc: string;
   id: number;
   isActive: boolean;
+}
+
+export interface FlowInterface {
+  flowItems: FlowItem[];
+  setFlowItems: Dispatch<FlowItem[]>;
+}
+
+export interface ActiveData {
+  listNo: number;
+  node: number;
+}
+export interface ActiveFlow {
+  data: ActiveData;
+  setData: Dispatch<ActiveData>;
 }
 
 const demoFlowItem: FlowItem = {
@@ -27,8 +42,8 @@ const demoFlowItem: FlowItem = {
 const demoSetFlowItems: Dispatch<FlowItem[]> =
   "placeHolder" as unknown as Dispatch<FlowItem[]>;
 
-const demoSetActiveItem: Dispatch<number> =
-  "placeHolder" as unknown as Dispatch<number>;
+const demoSetActiveData: Dispatch<ActiveData> =
+  "placeHolder" as unknown as Dispatch<ActiveData>;
 
 const defaultFlowItem: FlowItem = {
   itemType: "node",
@@ -40,31 +55,50 @@ const defaultFlowItem: FlowItem = {
 
 const changeActiveItem = (
   id: number,
-  setActiveItem: Dispatch<number>
+  listNo: number,
+  setActiveData: Dispatch<ActiveData>
 ): void => {
-  setActiveItem(id);
+  setActiveData({ listNo, node: id });
 };
 
 export interface ContextValue {
-  flowItems: FlowItem[];
-  setFlowItems: Dispatch<FlowItem[]>;
-  activeItem: number;
-  setActiveItem: Dispatch<number>;
-  changeActiveItem(id: number, setActiveItem: Dispatch<number>): void;
-  createFlowItem(afterId: number, item?: FlowItem): void;
+  flowList: FlowInterface[];
+  activeData: ActiveFlow;
+  changeActiveItem(
+    id: number,
+    listNo: number,
+    setActiveItem: Dispatch<ActiveData>
+  ): void;
+  createFlowItem(listNo: number, afterId: number, item?: FlowItem): void;
+  deleteFlowItem(listNo: number, id: number): void;
+  replaceFlowItem(
+    listNo: number,
+    id: number,
+    afterId: number,
+    item: FlowItem
+  ): void;
 }
 
 export const ChartCtx: Context<ContextValue> = createContext({
-  flowItems: [demoFlowItem],
-  setFlowItems: demoSetFlowItems,
-  activeItem: 0,
-  setActiveItem: demoSetActiveItem,
+  flowList: [{ flowItems: [demoFlowItem], setFlowItems: demoSetFlowItems }],
+  activeData: { data: { listNo: 0, node: -1 }, setData: demoSetActiveData },
   changeActiveItem,
-  createFlowItem: function (afterId: number, item?: FlowItem) {},
+  createFlowItem: function (
+    listNo: number,
+    afterId: number,
+    item?: FlowItem
+  ) {},
+  deleteFlowItem: function (listNo: number, id: number) {},
+  replaceFlowItem: function (
+    listNo: number,
+    id: number,
+    afterId: number,
+    item: FlowItem
+  ) {},
 });
 
 export default function (props: PropsWithChildren): JSX.Element {
-  const [flowItems, setFlowItems] = useState<FlowItem[]>([
+  const [flowItems1, setFlowItems1] = useState<FlowItem[]>([
     {
       itemType: "start",
       label: "Start of a Request",
@@ -87,6 +121,20 @@ export default function (props: PropsWithChildren): JSX.Element {
       isActive: false,
     },
     {
+      itemType: "node",
+      label: "New Request 3",
+      desc: "Info: Request Service",
+      id: 0,
+      isActive: false,
+    },
+    {
+      itemType: "node",
+      label: "New Request 4",
+      desc: "Info: Request Service",
+      id: 0,
+      isActive: false,
+    },
+    {
       itemType: "end",
       label: "End of a request",
       desc: "Info: Request Service has been ended",
@@ -95,16 +143,81 @@ export default function (props: PropsWithChildren): JSX.Element {
     },
   ]);
 
-  const [activeItem, setActiveItem]: [number, Dispatch<number>] = useState(0);
+  const [flowItems2, setFlowItems2] = useState<FlowItem[]>([]);
+
+  const [activeItem, setActiveItem] = useState<ActiveData>({
+    listNo: 0,
+    node: 0,
+  });
+
+  const activeData: ActiveFlow = {
+    data: activeItem,
+    setData: setActiveItem,
+  };
+
+  const flowList = [
+    {
+      flowItems: flowItems1,
+      setFlowItems: setFlowItems1,
+    },
+    {
+      flowItems: flowItems2,
+      setFlowItems: setFlowItems2,
+    },
+  ];
 
   const createFlowItem = (
+    listNo: number,
     afterId: number,
     item: FlowItem = defaultFlowItem
   ): void => {
-    const newFlowItems = flowItems
-      .splice(0, afterId + 1)
-      .concat(item)
-      .concat(flowItems);
+    const { setFlowItems } = flowList[listNo];
+    item.desc = `Info: ${item.desc}`;
+
+    setFlowItems((prevFlowItems) => {
+      const newFlowItems = prevFlowItems
+        .splice(0, afterId + 1)
+        .concat(item)
+        .concat(prevFlowItems);
+
+      return newFlowItems;
+    });
+  };
+
+  const deleteFlowItem = (listNo: number, id: number) => {
+    const { flowItems, setFlowItems } = flowList[listNo];
+
+    if (id === 0 || id === flowItems.length - 1) return;
+
+    setFlowItems((prevFlowItems) => {
+      const firstHalf = prevFlowItems.splice(0, id);
+      const secondHalf = prevFlowItems.slice(1);
+
+      console.log("First", firstHalf);
+      console.log("Second", secondHalf);
+
+      const newFlowItems = firstHalf.concat(secondHalf);
+      console.log("List: ", newFlowItems);
+
+      return newFlowItems;
+    });
+  };
+
+  const replaceFlowItem = (
+    listNo: number,
+    id: number,
+    afterId: number,
+    item: FlowItem
+  ) => {
+    const { flowItems, setFlowItems } = flowList[listNo];
+
+    const newFlowItems: FlowItem[] = [];
+
+    for (let i = 0; i < flowItems.length; i++) {
+      if (flowItems[i].id === afterId + 1) newFlowItems.push(item);
+      if (flowItems[i].id === id) continue;
+      newFlowItems.push(flowItems[i]);
+    }
 
     setFlowItems(newFlowItems);
   };
@@ -112,12 +225,12 @@ export default function (props: PropsWithChildren): JSX.Element {
   return (
     <ChartCtx.Provider
       value={{
-        flowItems,
-        setFlowItems,
-        activeItem,
-        setActiveItem,
+        flowList,
+        activeData,
         changeActiveItem,
         createFlowItem,
+        deleteFlowItem,
+        replaceFlowItem,
       }}
     >
       {props.children}

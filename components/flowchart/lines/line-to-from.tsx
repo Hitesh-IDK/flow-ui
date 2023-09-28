@@ -26,35 +26,9 @@ export default function ({
 }): JSX.Element {
   const { createFlowItem } = useContext(ChartCtx);
   const { modalActive, setModalActive } = useContext(ModalCtx);
-  const [dragActive, setDragActive] = useState(false);
 
   const addHandler = () => {
     setModalActive(true);
-  };
-
-  const draggedItemHandler = (event: DragEvent) => {
-    event.preventDefault();
-    console.log("ON", event);
-
-    setDragActive(true);
-  };
-
-  const undoDraggedItem = (event: DragEvent) => {
-    event.preventDefault();
-    console.log("OFF", event);
-
-    setDragActive(false);
-  };
-
-  const activeDragHandler = (event: DragEvent) => {
-    event.preventDefault();
-  };
-
-  const dropHandler = (event: DragEvent) => {
-    event.preventDefault();
-    console.log("DROP", event);
-
-    setDragActive(false);
   };
 
   return (

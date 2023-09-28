@@ -16,7 +16,12 @@ export default function (): React.JSX.Element {
   const { descInput, setDescInput } = desc;
 
   const [addActive, setAddActive] = useState(false);
-  const { activeItem: afterId, createFlowItem } = useContext(ChartCtx);
+  const {
+    activeData: {
+      data: { listNo, node: afterId },
+    },
+    createFlowItem,
+  } = useContext(ChartCtx);
 
   //   const { modalActive, setModalActive } = useContext(ModalCtx);
 
@@ -41,12 +46,12 @@ export default function (): React.JSX.Element {
     const item: FlowItem = {
       itemType: "node",
       label: titleInput,
-      desc: `Info: ${descInput}`,
+      desc: descInput,
       id: afterId + 1,
       isActive: false,
     };
 
-    createFlowItem(afterId, item);
+    createFlowItem(listNo, afterId, item);
 
     // if (modalActive) setModalActive(false);
     resetData();
