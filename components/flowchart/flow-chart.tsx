@@ -14,9 +14,10 @@ export default function (): JSX.Element {
     },
   }: { flowList: FlowInterface[]; activeData: ActiveFlow } =
     useContext(ChartCtx);
-  const { flowItems } = flowList[listNo];
+  const { flowItems: flowItems0 } = flowList[0];
+  const { flowItems: flowItems1 } = flowList[1];
 
-  const flowItemElements: JSX.Element[] = flowItems.map(
+  const flowItemElements0: JSX.Element[] = flowItems0.map(
     (item: FlowItem, i: number) => {
       item.id = i;
       return (
@@ -25,6 +26,24 @@ export default function (): JSX.Element {
           label={item.label}
           desc={item.desc}
           id={item.id}
+          listId={0}
+          key={i}
+          isActive={item.isActive}
+        ></FlowItemElement>
+      );
+    }
+  );
+
+  const flowItemElements1: JSX.Element[] = flowItems1.map(
+    (item: FlowItem, i: number) => {
+      item.id = i;
+      return (
+        <FlowItemElement
+          itemType={item.itemType}
+          label={item.label}
+          desc={item.desc}
+          id={item.id}
+          listId={1}
           key={i}
           isActive={item.isActive}
         ></FlowItemElement>
@@ -34,7 +53,8 @@ export default function (): JSX.Element {
 
   return (
     <div className={parentStyles.flow__container}>
-      <div className={styles.flowchart__container}>{flowItemElements}</div>
+      <div className={styles.flowchart__container}>{flowItemElements0}</div>
+      <div className={styles.flowchart__container}>{flowItemElements1}</div>
     </div>
   );
 }
