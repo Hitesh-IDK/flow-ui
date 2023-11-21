@@ -47,8 +47,6 @@ export default function ({
 
   //When item clicked, set the item as active using context imported function
   const itemClickHandler = (event: MouseEvent): void => {
-    console.log(listId, listNo);
-
     changeActiveItem(id, listId, setActiveData);
     // changeActiveItem(id, setActiveItem);
   };
@@ -74,13 +72,6 @@ export default function ({
 
     resetData();
     setDragCount(0);
-
-    console.log(
-      "Drop requested - Origin :",
-      originState.originNode,
-      " - ListNo :",
-      originState.originListNo
-    );
 
     if (["end"].includes(itemType)) return;
     if (

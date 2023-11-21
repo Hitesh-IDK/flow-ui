@@ -12,10 +12,9 @@
     "@types/node": "20.6.3",
     "@types/react": "18.2.22",
     "@types/react-dom": "18.2.7",
-    "next": "13.5.2",
+    "next": "^14.0.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-draggable": "^4.4.5",
     "typescript": "5.2.2"
   },
   "devDependencies": {

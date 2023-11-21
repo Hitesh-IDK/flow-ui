@@ -1,14 +1,7 @@
 "use client";
 
 import styles from "./add-modal.module.css";
-import {
-  ChangeEvent,
-  ChangeEventHandler,
-  InputHTMLAttributes,
-  JSX,
-  useContext,
-  useState,
-} from "react";
+import { ChangeEvent, JSX, useContext, useState } from "react";
 import closeIcon from "@/public/icons/close.svg";
 import Image from "next/image";
 import { ActiveFlow, ChartCtx, FlowItem } from "../chart-ctx";
@@ -45,6 +38,7 @@ export default function ({ createFlowItem }: Props): JSX.Element {
       label: nameInput,
       desc: descInput,
       id: afterId + 1,
+      listId: listNo,
       isActive: false,
     };
 

@@ -183,7 +183,7 @@ export default function (props: PropsWithChildren): JSX.Element {
 
   const [activeItem, setActiveItem] = useState<ActiveData>({
     listNo: 0,
-    node: 0,
+    node: -1,
   });
 
   useEffect(() => {}, [activeItem, flowItems1, flowItems2]);

@@ -5,8 +5,13 @@ import parentStyles from "../flow-container.module.css";
 import FlowItemElement from "./flow-item";
 import { ActiveFlow, ChartCtx, FlowInterface, FlowItem } from "./chart-ctx";
 import { useContext } from "react";
+import flowItem from "./flow-item";
 
-export default function (): JSX.Element {
+interface Props {
+  sendFlow: CallableFunction;
+}
+
+export default function ({ sendFlow }: Props): JSX.Element {
   const {
     flowList,
     activeData: {
@@ -50,6 +55,8 @@ export default function (): JSX.Element {
       );
     }
   );
+
+  sendFlow({ flow1: flowItems0, flow2: flowItems1 });
 
   return (
     <div className={parentStyles.flow__container}>
