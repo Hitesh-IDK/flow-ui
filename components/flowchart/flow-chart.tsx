@@ -4,7 +4,7 @@ import styles from "./flow-chart.module.css";
 import parentStyles from "../flow-container.module.css";
 import FlowItemElement from "./flow-item";
 import { ActiveFlow, ChartCtx, FlowInterface, FlowItem } from "./chart-ctx";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import flowItem from "./flow-item";
 
 interface Props {
@@ -21,6 +21,14 @@ export default function ({ sendFlow }: Props): JSX.Element {
     useContext(ChartCtx);
   const { flowItems: flowItems0 } = flowList[0];
   const { flowItems: flowItems1 } = flowList[1];
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (flowItems0.length !== 0) {
+      setIsLoading(false);
+    }
+  }, [flowItems0, flowItems1]);
 
   const flowItemElements0: JSX.Element[] = flowItems0.map(
     (item: FlowItem, i: number) => {
@@ -60,8 +68,14 @@ export default function ({ sendFlow }: Props): JSX.Element {
 
   return (
     <div className={parentStyles.flow__container}>
-      <div className={styles.flowchart__container}>{flowItemElements0}</div>
-      <div className={styles.flowchart__container}>{flowItemElements1}</div>
+      {!isLoading ? (
+        <>
+          <div className={styles.flowchart__container}>{flowItemElements0}</div>
+          <div className={styles.flowchart__container}>{flowItemElements1}</div>
+        </>
+      ) : (
+        <span className={styles.loader}></span>
+      )}
     </div>
   );
 }
