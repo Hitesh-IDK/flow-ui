@@ -9,11 +9,20 @@ import { ChartCtx, FlowItem } from "../flowchart/chart-ctx";
 import { ModalCtx } from "../modal-ctx";
 import styles from "./add-process.module.css";
 import { AddCtx } from "./add-process-ctx";
+import { useSession } from "next-auth/react";
+import { MsgCtx, msgData } from "../msg-ctx";
 
 export default function (): React.JSX.Element {
   const { title, desc, resetData } = useContext(AddCtx);
   const { titleInput, setTitleInput } = title;
   const { descInput, setDescInput } = desc;
+
+  const msgData: msgData = useContext(MsgCtx);
+  const [msgTitle, setMsgTitle] = msgData.title;
+  const [msgDesc, setMsgDesc] = msgData.desc;
+  const [msgStatus, setMsgStatus] = msgData.status;
+
+  const session = useSession();
 
   const [addActive, setAddActive] = useState(false);
   const {
@@ -43,11 +52,20 @@ export default function (): React.JSX.Element {
   }, [titleInput, descInput]);
 
   const addHandler = () => {
+    if (session.status === "unauthenticated") {
+      setMsgTitle("Not Authenticated");
+      setMsgDesc("Consider signing in before interacting with the ui");
+      setMsgStatus("error");
+
+      return;
+    }
+
     const item: FlowItem = {
       itemType: "node",
       label: titleInput,
       desc: descInput,
       id: afterId + 1,
+      listId: listNo,
       isActive: false,
     };
 

@@ -75,8 +75,15 @@
   padding: 0px 2rem;
 }
 
+.header__side {
+  display: flex;
+
+  margin-right: 2rem;
+}
+
 .btn__save {
   appearance: none;
+  cursor: pointer;
 
   margin: 0px 2rem;
   width: 5rem;
@@ -99,4 +106,244 @@
   background-color: #49a5a2;
   color: azure;
   box-shadow: 0px 10px 10px rgba(128, 128, 128, 0.322);
+}
+
+.login {
+  align-self: center;
+
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: all 220ms ease-in-out;
+}
+
+.login:hover {
+  color: #49a5a2;
+
+  font-size: 0.97rem;
+}
+
+.login__modal {
+  position: absolute;
+  z-index: 3;
+
+  background-color: #5a9cbb;
+  color: white;
+  width: 15rem;
+
+  right: 11rem;
+  top: 8rem;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 1rem;
+  border-radius: 7px;
+}
+
+.login__title {
+  align-self: center;
+  font-weight: 500;
+  text-align: center;
+}
+
+.login__email {
+  margin-top: 0.3rem;
+}
+
+.input__email {
+  appearance: none;
+  cursor: text;
+  height: 1.5rem;
+
+  border: 1px solid black;
+  border-radius: 4px;
+
+  margin-top: 5px;
+  padding-left: 7px;
+}
+
+.login__password {
+  margin-top: 10px;
+}
+
+.input__password {
+  appearance: none;
+  cursor: text;
+  height: 1.5rem;
+
+  border: 1px solid black;
+  border-radius: 4px;
+
+  margin-top: 5px;
+  padding-left: 7px;
+}
+
+.btn__login {
+  appearance: none;
+  cursor: pointer;
+
+  font-size: 0.8rem;
+
+  margin-top: 10px;
+
+  width: 70%;
+  height: 2rem;
+
+  align-self: center;
+
+  border: 1px solid black;
+  border-radius: 5px;
+
+  transition: all 220ms ease-in-out;
+}
+
+.btn__login:hover {
+  background-color: #dd5f4e;
+  color: white;
+
+  font-weight: 600;
+
+  border: 1px solid rgb(209, 209, 209);
+  border-radius: 10px;
+}
+
+.signUp {
+  font-style: italic;
+  font-size: 0.8rem;
+
+  margin-top: 9px;
+
+  align-self: center;
+  cursor: pointer;
+}
+
+.signUp:hover {
+  color: #b5fc99;
+}
+
+.msg__container {
+  position: absolute;
+  bottom: 5rem;
+  left: -18rem;
+
+  width: 25rem;
+
+  background-color: antiquewhite;
+  border-radius: 5px;
+  border: 1px solid rgb(161, 37, 37);
+
+  padding: 0.8em 1rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  transition: all 2s ease-in-out;
+
+  /* transform: translateX(20rem); */
+  opacity: 0;
+}
+
+.msg__title {
+  font-weight: 600;
+}
+
+.msg__description {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.icon__close {
+  height: 14px;
+  width: auto;
+
+  margin-left: 1rem;
+
+  transition: all 350ms ease-in-out;
+}
+
+.icon__close:hover {
+  height: 16px;
+  width: auto;
+
+  transform: rotate(90deg);
+}
+
+.msg__hidden {
+  border: 1px solid rgb(83, 76, 76);
+  background-color: rgb(255, 251, 245);
+}
+
+.msg__success {
+  transform: translateX(20rem);
+  opacity: 100;
+
+  border: 2px solid rgb(34, 134, 34);
+  background-color: rgb(238, 253, 235);
+}
+
+.msg__error {
+  transform: translateX(20rem);
+  opacity: 100;
+
+  color: rgb(37, 34, 34);
+  border: 2px solid rgb(134, 34, 34);
+  background-color: rgb(255, 227, 223);
+}
+
+.msg__neutral {
+  transform: translateX(20rem);
+  opacity: 100;
+
+  color: rgb(233, 233, 233);
+  border: 2px solid rgb(0, 0, 0);
+  background-color: rgb(226, 226, 226);
+}
+
+.seperator {
+  margin-top: 15px;
+  background-color: rgba(211, 211, 211, 0.589);
+
+  height: 2px;
+  position: relative;
+}
+
+.seperator__text {
+  position: absolute;
+  top: -8px;
+  left: 40%;
+
+  font-size: 0.8rem;
+  background-color: #5a9cbb;
+  width: 2rem;
+  text-align: center;
+  font-style: italic;
+}
+
+.btn__google {
+  appearance: none;
+  cursor: pointer;
+
+  font-size: 0.8rem;
+
+  margin-top: 15px;
+
+  height: 2rem;
+  width: 100%;
+
+  align-self: center;
+
+  border: 1px solid black;
+  border-radius: 5px;
+
+  transition: all 220ms ease-in-out;
+}
+
+.btn__google:hover {
+  background-color: #f5e1de;
+  color: rgb(0, 0, 0);
+
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 10px;
 }

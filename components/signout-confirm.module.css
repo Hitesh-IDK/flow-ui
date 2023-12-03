@@ -1,0 +1,90 @@
+.modal__container {
+  position: absolute;
+  top: 40%;
+  left: 40%;
+
+  background-color: beige;
+  z-index: 4;
+  border-radius: 5px;
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.349);
+
+  padding: 1rem 1rem;
+
+  transition: all 300ms ease-out;
+}
+
+.modal__title {
+  font-size: 1rem;
+  font-weight: 600;
+
+  text-align: center;
+}
+
+.options {
+  margin-top: 7px;
+
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+
+  align-items: center;
+}
+
+.btn__yes {
+  appearance: none;
+  width: 4rem;
+  height: 2rem;
+
+  background-color: rgb(201, 201, 201);
+  border: 1px solid black;
+  border-radius: 3px;
+
+  cursor: pointer;
+
+  transition: all 300ms ease-out;
+}
+
+.btn__no {
+  appearance: none;
+  width: 4rem;
+  height: 2rem;
+
+  background-color: #49a5a2;
+  color: azure;
+  border: 1px solid black;
+  border-radius: 3px;
+
+  cursor: pointer;
+
+  transition: all 300ms ease-out;
+}
+
+.btn__yes:hover {
+  width: 4.3rem;
+  height: 2.3rem;
+}
+
+.btn__no:hover {
+  width: 4.3rem;
+  height: 2.3rem;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #fff;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

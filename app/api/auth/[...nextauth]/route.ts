@@ -1,41 +1,72 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
+import bcrypt, { genSalt } from "bcryptjs";
+import ApiPort from "../../ApiPort";
 
-const handler: NextAuthOptions = NextAuth({
+export type authActions = "signIn" | "signUp";
+export interface authCredentials {
+  email: string;
+  password: string;
+  action: authActions;
+  redirect: boolean;
+}
+
+export const handler: NextAuthOptions = NextAuth({
   providers: [
+    GoogleProvider({
+      clientId: process.env.CLIENTID!,
+      clientSecret: process.env.CLIENTSECRET!,
+    }),
+
     CredentialsProvider({
-      name: "Credentials",
+      name: "Login",
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "name" },
+        email: { label: "email", type: "email", placeholder: "name" },
         password: { label: "Password", type: "password" },
       },
 
-      async authorize(credentials, req) {
-        // Add logic here to look up the user from the credentials supplied
-        const user = { id: "1", name: "J Smith", email: "jsmith@example.com" };
+      async authorize<authCredentials>(credentials: any) {
+        console.log(credentials);
 
-        if (user) {
-          // Any object returned will be saved in `user` property of the JWT
+        const hashedPassword: string = await bcrypt.hash(
+          credentials?.password!,
+          await genSalt()
+        );
+
+        const calculatedPassword =
+          credentials.action === "signIn"
+            ? credentials.password
+            : hashedPassword;
+
+        const response = await fetch(process.env.APIAUTH!, {
+          method: "POST",
+          body: JSON.stringify({
+            ...credentials,
+            password: calculatedPassword,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        const data = await response.json();
+        console.log(data);
+
+        if (response.status === 200) {
+          const user = {
+            id: data.insertedId,
+            email: credentials.email,
+            password: hashedPassword,
+          };
+
           return user;
         } else {
-          // If you return null then an error will be displayed advising the user to check their details.
           return null;
-
-          // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
         }
       },
     }),
   ],
-
-  callbacks: {
-    signIn(props) {
-      // {
-      //   user, account, profile, email, credentials;
-      // }
-      console.log(props);
-      return "http://localhost:3000";
-    },
-  },
 });
 
 export { handler as GET, handler as POST };

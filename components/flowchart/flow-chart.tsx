@@ -25,12 +25,12 @@ export default function ({ sendFlow }: Props): JSX.Element {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (flowItems0.length !== 0) {
+    if (flowItems0?.length !== 0 && flowItems0) {
       setIsLoading(false);
     }
   }, [flowItems0, flowItems1]);
 
-  const flowItemElements0: JSX.Element[] = flowItems0.map(
+  const flowItemElements0: JSX.Element[] = flowItems0?.map(
     (item: FlowItem, i: number) => {
       item.id = i;
       return (
@@ -47,7 +47,7 @@ export default function ({ sendFlow }: Props): JSX.Element {
     }
   );
 
-  const flowItemElements1: JSX.Element[] = flowItems1.map(
+  const flowItemElements1: JSX.Element[] = flowItems1?.map(
     (item: FlowItem, i: number) => {
       item.id = i;
       return (

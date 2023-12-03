@@ -6,6 +6,8 @@ import { useContext, MouseEvent, useState, DragEvent, useEffect } from "react";
 import LineToFrom from "./lines/line-to-from";
 import DragLine from "./lines/drag-line";
 import { AddCtx } from "../criteria/add-process-ctx";
+import { useSession } from "next-auth/react";
+import { MsgCtx } from "../msg-ctx";
 
 export default function ({
   itemType,
@@ -29,6 +31,13 @@ export default function ({
   } = activeData;
 
   const { flowItems } = flowList[listNo];
+
+  const session = useSession();
+  const {
+    title: [msgTitle, setMsgTitle],
+    desc: [msgDesc, setMsgDesc],
+    status: [msgStatus, setMsgStatus],
+  } = useContext(MsgCtx);
 
   const {
     title: titleState,
@@ -72,6 +81,14 @@ export default function ({
 
     resetData();
     setDragCount(0);
+
+    if (session.status === "unauthenticated") {
+      setMsgTitle("Not Authenticated");
+      setMsgDesc("Consider signing in before interacting with the ui");
+      setMsgStatus("error");
+
+      return;
+    }
 
     if (["end"].includes(itemType)) return;
     if (
