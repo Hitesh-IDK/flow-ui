@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import ApiPort from "../ApiPort";
 
 export async function GET(req: Request) {
-  console.log("Request recieved");
   try {
     const response = await fetch(process.env.APIFLOWS!, {
       method: "GET",
@@ -32,7 +31,6 @@ export async function GET(req: Request) {
       { status: response.status }
     );
   } catch (e: any) {
-    console.log(e.message);
     return NextResponse.json(
       {
         message: "There is an issue here...",

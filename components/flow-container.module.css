@@ -243,6 +243,7 @@
 
   /* transform: translateX(20rem); */
   opacity: 0;
+  z-index: 10;
 }
 
 .msg__title {

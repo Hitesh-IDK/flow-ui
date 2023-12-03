@@ -194,8 +194,6 @@ export default function (props: PropsWithChildren): JSX.Element {
   };
 
   useEffect(() => {
-    console.log("Running effect");
-
     const flowsFromServer = getFlowItems().then((data) => {
       setTimeout(() => {
         setFlowItems1(data.flows1);
@@ -246,8 +244,6 @@ export default function (props: PropsWithChildren): JSX.Element {
   };
 
   const deleteFlowItem = (listNo: number, id: number) => {
-    console.log(listNo, id);
-
     const { flowItems, setFlowItems } = flowList[listNo];
 
     if (id === 0 || id === flowItems.length - 1 || activeItem.node === -1)
@@ -269,8 +265,6 @@ export default function (props: PropsWithChildren): JSX.Element {
     afterId: number,
     item: FlowItem
   ) => {
-    console.log("Replace requested!");
-
     if (fromListNo === listNo) {
       const { flowItems, setFlowItems } = flowList[listNo];
 
@@ -286,8 +280,6 @@ export default function (props: PropsWithChildren): JSX.Element {
     }
 
     if (listNo !== fromListNo) {
-      console.log("Cross List");
-
       const { flowItems: fromFlowItems, setFlowItems: fromSetFlowItems } =
         flowList[fromListNo];
       const { flowItems: toFlowItems, setFlowItems: toSetFlowItems } =

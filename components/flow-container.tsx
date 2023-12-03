@@ -16,7 +16,7 @@ import EmailValidator from "email-validator";
 import validatePassword from "./helpers/validatePassword";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { authActions } from "@/app/api/auth/[...nextauth]/route";
-import SignoutConfirm from "./signout-confirm";
+import ProfileModal from "./profile-modal";
 import BackgroundBlur from "./background-blur";
 
 export default function FlowContainer(): JSX.Element {
@@ -31,7 +31,7 @@ export default function FlowContainer(): JSX.Element {
   const authData: AuthCtxData = useContext(AuthCtx);
   const [loginPressed, setLoginPressed] = authData.loginPressed;
   const [signupPressed, setSignupPressed] = useState(false);
-  const [signoutPressed, setSignoutPressed] = useState(false);
+  const [profilePressed, setProfilePressed] = useState(false);
 
   const session = useSession();
 
@@ -101,8 +101,8 @@ export default function FlowContainer(): JSX.Element {
     }
   };
 
-  const signout__handler = () => {
-    setSignoutPressed(true);
+  const profile__handler = () => {
+    setProfilePressed(true);
   };
 
   const submit_handler = async (e: React.MouseEvent) => {
@@ -157,8 +157,6 @@ export default function FlowContainer(): JSX.Element {
       action: setAction,
     });
 
-    console.dir(response);
-
     if (response!.ok) {
       if (signupPressed) {
         setSignupPressed(false);
@@ -210,7 +208,7 @@ export default function FlowContainer(): JSX.Element {
   const google_signin_handler = (e: React.MouseEvent) => {
     e.preventDefault();
 
-    signIn("google");
+    const response = signIn("google", {});
   };
 
   const click_handler = (e: React.MouseEvent) => {
@@ -225,103 +223,111 @@ export default function FlowContainer(): JSX.Element {
     <DropdownProvider>
       <ChartCtxProvider>
         <AddCtxProvider>
-          {signoutPressed && (
-            <>
-              <BackgroundBlur />
-              <SignoutConfirm setSignout={setSignoutPressed} />
-            </>
-          )}
-          <div className={`${styles.msg__container} ${msgStatusStyles}`}>
-            <div>
-              <div className={styles.msg__title}>{title}</div>
-              <div className={styles.msg__description}>Info: {desc}</div>
+          <div className="unselectable">
+            {profilePressed && (
+              <>
+                <BackgroundBlur />
+                <ProfileModal setProfilePressed={setProfilePressed} />
+              </>
+            )}
+            <div className={`${styles.msg__container} ${msgStatusStyles}`}>
+              <div>
+                <div className={styles.msg__title}>{title}</div>
+                <div className={styles.msg__description}>Info: {desc}</div>
+              </div>
+              <Image
+                alt="close"
+                src={closeIcon}
+                className={styles.icon__close}
+                onClick={msgClose__handler}
+              />
             </div>
-            <Image
-              alt="close"
-              src={closeIcon}
-              className={styles.icon__close}
-              onClick={msgClose__handler}
-            />
-          </div>
-          <div className={styles.container__top} onClick={click_handler}>
-            <div className={styles.container__main}>
-              <div className={styles.header__container}>
-                <header className={styles.header}>Flow Header</header>
-                <div className={styles.header__side}>
-                  <button className={styles.btn__save} onClick={save_handler}>
-                    Save
-                  </button>
-                  {session.status !== "authenticated" ? (
-                    <div className={styles.login} onClick={login__handler}>
-                      Login
-                    </div>
-                  ) : (
-                    <div className={styles.login} onClick={signout__handler}>
-                      SignOut
+            <div className={styles.container__top} onClick={click_handler}>
+              <div className={styles.container__main}>
+                <div className={styles.header__container}>
+                  <header className={styles.header}>Flow Header</header>
+                  <div className={styles.header__side}>
+                    <button className={styles.btn__save} onClick={save_handler}>
+                      Save
+                    </button>
+                    {session.status !== "authenticated" ? (
+                      <div className={styles.login} onClick={login__handler}>
+                        Login
+                      </div>
+                    ) : (
+                      <div className={styles.login} onClick={profile__handler}>
+                        Profile
+                      </div>
+                    )}
+                  </div>
+                  {loginPressed && (
+                    <div className={styles.login__modal} ref={modalRef}>
+                      <div className={styles.login__title}>Credentials</div>
+                      <label className={styles.login__email}>Email</label>
+                      <input
+                        type="email"
+                        className={styles.input__email}
+                        ref={emailRef}
+                      ></input>
+                      <label className={styles.login__password}>Password</label>
+                      <input
+                        type="password"
+                        className={styles.input__password}
+                        ref={passwordRef}
+                      ></input>
+                      {signupPressed ? (
+                        <>
+                          <label className={styles.login__password}>
+                            Confirm Password
+                          </label>
+                          <input
+                            type="password"
+                            className={styles.input__password}
+                            ref={confPasswordRef}
+                          ></input>
+                        </>
+                      ) : (
+                        <></>
+                      )}
+                      <button
+                        type="submit"
+                        onClick={submit_handler}
+                        className={styles.btn__login}
+                      >
+                        {signupPressed ? "Register" : "Login"}
+                      </button>
+                      {!signupPressed ? (
+                        <span
+                          className={styles.signUp}
+                          onClick={signup__Handler}
+                        >
+                          New User? SignUp
+                        </span>
+                      ) : (
+                        <span
+                          className={styles.signUp}
+                          onClick={login__handler}
+                        >
+                          Existing User? Login
+                        </span>
+                      )}
+                      <div className={styles.seperator}>
+                        <span className={styles.seperator__text}>OR</span>
+                      </div>
+                      <button
+                        className={styles.btn__google}
+                        onClick={google_signin_handler}
+                      >
+                        Signin using google
+                      </button>
                     </div>
                   )}
                 </div>
-                {loginPressed && (
-                  <div className={styles.login__modal} ref={modalRef}>
-                    <div className={styles.login__title}>Credentials</div>
-                    <label className={styles.login__email}>Email</label>
-                    <input
-                      type="email"
-                      className={styles.input__email}
-                      ref={emailRef}
-                    ></input>
-                    <label className={styles.login__password}>Password</label>
-                    <input
-                      type="password"
-                      className={styles.input__password}
-                      ref={passwordRef}
-                    ></input>
-                    {signupPressed ? (
-                      <>
-                        <label className={styles.login__password}>
-                          Confirm Password
-                        </label>
-                        <input
-                          type="password"
-                          className={styles.input__password}
-                          ref={confPasswordRef}
-                        ></input>
-                      </>
-                    ) : (
-                      <></>
-                    )}
-                    <button
-                      type="submit"
-                      onClick={submit_handler}
-                      className={styles.btn__login}
-                    >
-                      {signupPressed ? "Register" : "Login"}
-                    </button>
-                    {!signupPressed ? (
-                      <span className={styles.signUp} onClick={signup__Handler}>
-                        New User? SignUp
-                      </span>
-                    ) : (
-                      <span className={styles.signUp} onClick={login__handler}>
-                        Existing User? Login
-                      </span>
-                    )}
-                    <div className={styles.seperator}>
-                      <span className={styles.seperator__text}>OR</span>
-                    </div>
-                    <button
-                      className={styles.btn__google}
-                      onClick={google_signin_handler}
-                    >
-                      Signin using google
-                    </button>
-                  </div>
-                )}
+                <ModalCtx>
+                  <FlowChart sendFlow={getFlows} />
+                </ModalCtx>
+                <FlowCriteria />
               </div>
-              <ModalCtx>
-                <FlowChart sendFlow={getFlows} />
-              </ModalCtx>
-              <FlowCriteria />
             </div>
           </div>
         </AddCtxProvider>

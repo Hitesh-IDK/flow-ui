@@ -4,12 +4,12 @@ export default function (password: string): boolean {
   const containsDigit = (password: string): boolean => {
     const charList = password.split("");
 
-    charList.filter((char) => char >= "0" && char <= "9");
+    const filtered = charList.filter((char) => !Number.isNaN(Number(char)));
 
-    return charList.length > 0;
+    return filtered.length > 0;
   };
 
-  if (!containsDigit) return false;
+  if (!containsDigit(password)) return false;
 
   return true;
 }

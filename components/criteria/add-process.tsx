@@ -91,7 +91,6 @@ export default function (): React.JSX.Element {
 
   const dragHandler = (event: DragEvent) => {
     event.preventDefault();
-    // console.log(event);
   };
 
   return (

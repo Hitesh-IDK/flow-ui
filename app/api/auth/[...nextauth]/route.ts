@@ -2,7 +2,6 @@ import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import bcrypt, { genSalt } from "bcryptjs";
-import ApiPort from "../../ApiPort";
 
 export type authActions = "signIn" | "signUp";
 export interface authCredentials {
@@ -27,8 +26,6 @@ export const handler: NextAuthOptions = NextAuth({
       },
 
       async authorize<authCredentials>(credentials: any) {
-        console.log(credentials);
-
         const hashedPassword: string = await bcrypt.hash(
           credentials?.password!,
           await genSalt()
@@ -51,7 +48,6 @@ export const handler: NextAuthOptions = NextAuth({
         });
 
         const data = await response.json();
-        console.log(data);
 
         if (response.status === 200) {
           const user = {
@@ -67,6 +63,13 @@ export const handler: NextAuthOptions = NextAuth({
       },
     }),
   ],
+  callbacks: {
+    signIn(params) {
+      if (params.profile) {
+      }
+      return true;
+    },
+  },
 });
 
 export { handler as GET, handler as POST };
