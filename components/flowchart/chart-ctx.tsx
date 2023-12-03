@@ -103,81 +103,81 @@ export const ChartCtx: Context<ContextValue> = createContext({
 
 export default function (props: PropsWithChildren): JSX.Element {
   const [flowItems1, setFlowItems1] = useState<FlowItem[]>([
-    {
-      itemType: "start",
-      label: "Start of a Request",
-      desc: "Info: Starting a request now",
-      id: 0,
-      listId: 0,
-      isActive: false,
-    },
-    {
-      itemType: "node",
-      label: "New Request 1",
-      desc: "Info: Request Service",
-      id: 0,
-      listId: 0,
-      isActive: false,
-    },
-    {
-      itemType: "node",
-      label: "New Request 2",
-      desc: "Info: Request Service",
-      id: 0,
-      listId: 0,
-      isActive: false,
-    },
-    {
-      itemType: "node",
-      label: "New Request 3",
-      desc: "Info: Request Service",
-      id: 0,
-      listId: 0,
-      isActive: false,
-    },
-    {
-      itemType: "end",
-      label: "End of a request",
-      desc: "Info: Request Service has been ended",
-      id: 0,
-      listId: 0,
-      isActive: false,
-    },
+    // {
+    //   itemType: "start",
+    //   label: "Start of a Request",
+    //   desc: "Info: Starting a request now",
+    //   id: 0,
+    //   listId: 0,
+    //   isActive: false,
+    // },
+    // {
+    //   itemType: "node",
+    //   label: "New Request 1",
+    //   desc: "Info: Request Service",
+    //   id: 0,
+    //   listId: 0,
+    //   isActive: false,
+    // },
+    // {
+    //   itemType: "node",
+    //   label: "New Request 2",
+    //   desc: "Info: Request Service",
+    //   id: 0,
+    //   listId: 0,
+    //   isActive: false,
+    // },
+    // {
+    //   itemType: "node",
+    //   label: "New Request 3",
+    //   desc: "Info: Request Service",
+    //   id: 0,
+    //   listId: 0,
+    //   isActive: false,
+    // },
+    // {
+    //   itemType: "end",
+    //   label: "End of a request",
+    //   desc: "Info: Request Service has been ended",
+    //   id: 0,
+    //   listId: 0,
+    //   isActive: false,
+    // },
   ]);
 
   const [flowItems2, setFlowItems2] = useState<FlowItem[]>([
-    {
-      itemType: "start",
-      label: "Start of a Request",
-      desc: "Info: Starting a request now",
-      id: 0,
-      listId: 0,
-      isActive: false,
-    },
-    {
-      itemType: "node",
-      label: "New Request 1",
-      desc: "Info: Request Service",
-      id: 0,
-      listId: 0,
-      isActive: false,
-    },
-    {
-      itemType: "node",
-      label: "New Request 2",
-      desc: "Info: Request Service",
-      id: 0,
-      listId: 0,
-      isActive: false,
-    },
-    {
-      itemType: "end",
-      label: "End of a request",
-      desc: "Info: Request Service has been ended",
-      id: 0,
-      listId: 0,
-      isActive: false,
-    },
+    // {
+    //   itemType: "start",
+    //   label: "Start of a Request",
+    //   desc: "Info: Starting a request now",
+    //   id: 0,
+    //   listId: 0,
+    //   isActive: false,
+    // },
+    // {
+    //   itemType: "node",
+    //   label: "New Request 1",
+    //   desc: "Info: Request Service",
+    //   id: 0,
+    //   listId: 0,
+    //   isActive: false,
+    // },
+    // {
+    //   itemType: "node",
+    //   label: "New Request 2",
+    //   desc: "Info: Request Service",
+    //   id: 0,
+    //   listId: 0,
+    //   isActive: false,
+    // },
+    // {
+    //   itemType: "end",
+    //   label: "End of a request",
+    //   desc: "Info: Request Service has been ended",
+    //   id: 0,
+    //   listId: 0,
+    //   isActive: false,
+    // },
   ]);
 
   const getFlowItems = async () => {
@@ -194,6 +194,8 @@ export default function (props: PropsWithChildren): JSX.Element {
   };
 
   useEffect(() => {
+    console.log("Running effect");
+
     const flowsFromServer = getFlowItems().then((data) => {
       setTimeout(() => {
         setFlowItems1(data.flows1);

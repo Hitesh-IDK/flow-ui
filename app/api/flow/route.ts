@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import ApiPort from "../ApiPort";
 
 export async function GET(req: Request) {
+  console.log("Request recieved");
   try {
     const response = await fetch(process.env.APIFLOWS!, {
       method: "GET",

@@ -72,6 +72,14 @@ export default function FlowContainer(): JSX.Element {
   };
 
   const save_handler = async () => {
+    if (session.status === "unauthenticated") {
+      setTitle("Not Authenticated");
+      setDesc("Consider signing in before interacting with the ui");
+      setStatus("error");
+
+      return;
+    }
+
     const response = await fetch("http://localhost:3000/api/flow", {
       method: "POST",
       body: JSON.stringify(flows),

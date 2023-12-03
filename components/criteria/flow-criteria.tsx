@@ -11,6 +11,8 @@ import Tooltip from "@/components/helpers/tooltip";
 import CriteriaBox from "./criteria-box";
 import { useContext } from "react";
 import { ChartCtx } from "../flowchart/chart-ctx";
+import { useSession } from "next-auth/react";
+import { MsgCtx, msgData } from "../msg-ctx";
 
 export default function (): JSX.Element {
   const {
@@ -21,12 +23,26 @@ export default function (): JSX.Element {
     deleteFlowItem,
   } = useContext(ChartCtx);
 
+  const session = useSession();
+  const {
+    title: [_, setMsgTitle],
+    desc: [__, setMsgDesc],
+    status: [___, setMsgStatus],
+  }: msgData = useContext(MsgCtx);
+
   const closeHandler = () => {
     // setActiveItem(-1);
     setActiveData({ listNo, node: -1 });
   };
 
   const discardHandler = () => {
+    if (session.status === "unauthenticated") {
+      setMsgTitle("Not Authenticated");
+      setMsgDesc("Consider signing in before interacting with the ui");
+      setMsgStatus("error");
+
+      return;
+    }
     deleteFlowItem(listNo, node);
   };
 

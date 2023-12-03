@@ -17,6 +17,8 @@ import Tooltip from "@/components/helpers/tooltip";
 import { ChartCtx } from "../chart-ctx";
 import { ModalCtx } from "@/components/modal-ctx";
 import AddModal from "./add-modal";
+import { useSession } from "next-auth/react";
+import { MsgCtx, msgData } from "@/components/msg-ctx";
 
 export default function ({
   isActive,
@@ -26,8 +28,23 @@ export default function ({
 }): JSX.Element {
   const { createFlowItem } = useContext(ChartCtx);
   const { modalActive, setModalActive } = useContext(ModalCtx);
+  const session = useSession();
+
+  const {
+    title: [_, setMsgTitle],
+    desc: [__, setMsgDesc],
+    status: [___, setMsgStatus],
+  }: msgData = useContext(MsgCtx);
 
   const addHandler = () => {
+    if (session.status === "unauthenticated") {
+      setMsgTitle("Not Authenticated");
+      setMsgDesc("Consider signing in before interacting with the ui");
+      setMsgStatus("error");
+
+      return;
+    }
+
     setModalActive(true);
   };
 
